@@ -183,8 +183,14 @@ void list_insert_after(List *list, void *data);
  * 
  * @param list 
  */
-void list_remove_head(List *list);
-void list_remove_tail(List *list);
+void* list_remove_head(List *list);
+
+/**
+ * @brief Remove tail node from list
+ * 
+ * @param list 
+ */
+void* list_remove_tail(List *list);
 void list_remove_last(List *list);
 void list_remove(List *list);
 void* list_get_head(List *list);

@@ -197,7 +197,24 @@ void list_remove_head(List *list){
 }
 
 // -- 16
-void list_remove_tail(List *list){}
+void* list_remove_tail(List *list){
+    assert(list != NULL);
+    exh_validate(list->len > 0, NULL);
+    ListNode *node;
+    void *data;
+
+    node = list->head->prev;
+    data = node->data;
+    list->head->prev->next = list->head;
+    node->prev->next = list->head;
+    free(node);
+    list->pointer = NULL;
+    list->len--;
+
+    return data;
+}
+
+// -- 17
 void list_remove_last(List *list){}
 void list_remove(List *list){}
 void* list_get_head(List *list){}
