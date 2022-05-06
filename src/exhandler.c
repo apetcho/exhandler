@@ -550,7 +550,21 @@ int exhfinally(Context *context){
 
     return 0;
 }
-void exhreturn(Context *cptr){}
+
+// -- 47
+void exhreturn(Context *context){
+    exhprint_debug(context, "exhreturn");
+    if(context == NULL){
+        context = exhget_context(NULL);
+    }
+    context->except->class = ReturnEvent;
+    context->except->state = PENDING_STATE;
+    exhprint_debug(context, "longjmp(finalbuf)");
+
+    EXH_LONGJMP(context->except->finalbuf, 1);
+}
+
+//  -- 48
 int exhcheck_begin(
     Context *cptr, int *checked, char *filename, int lineno
 ){}

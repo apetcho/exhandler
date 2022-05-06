@@ -668,6 +668,12 @@ int exhcatch(Context *context, ObjectRef exceptObj);
  * @return int 
  */
 int exhfinally(Context *context);
+
+/**
+ * @brief Process 'return'
+ * 
+ * @param context 
+ */
 void exhreturn(Context *context);
 int exhcheck_begin(Context *context, int *checked, char *filename, int lineno);
 int exhcheck(
