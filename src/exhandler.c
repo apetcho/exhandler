@@ -191,7 +191,7 @@ Scope exhget_scope(Context *cptr){
 
 // -- 41
 Context* exhget_context(Context *cptr){
-#ifdef EXHANDLER_MULTI_THREADING
+#if EXHANDLER_MULTI_THREADING
     EXHANDLER_THREAD_MUTEX_FUNC(1)
     if(cptr == NULL && contextDict != NULL){
         cptr = dict_get(contextDict, EXHANDLER_THREAD_ID_FUNC());
@@ -206,7 +206,7 @@ Context* exhget_context(Context *cptr){
 // -----------------------------------------------------------------
 // exhnew_context() :: create exception handling context for thread
 // -----------------------------------------------------------------
-#if EXHANDLER_USE_PTHREAD
+#if EXHANDLER_MULTI_THREADING
 static Context* exhnew_context(void){
     Context *context;
     context = calloc(1, sizeof(Context));
@@ -255,6 +255,31 @@ static void* exhget_data(void){
     Context *context = exhget_context(NULL);
     exhprint_debug(context, "exhget_data");
     return context->except->data;
+}
+
+// -----------------------------------------------------------------
+// exhprind_stacktrace() :: print the nested 'try' trace
+// -----------------------------------------------------------------
+static void exhprint_stacktrace(FILE *fileptr){
+    Context *context = exhget_context(NULL);
+    exhprint_debug(context, "exhprint_stacktrace");
+    if(fileptr == NULL){ fileptr = stderr; }
+
+#if EXHANDLER_MULTI_THREADING
+    fprintf(
+        fileptr, "%s occured in thread %d:\n",
+        cptr->except->class->name, EXHANDLER_THREAD_ID_FUNC()
+    );
+#else
+    fprintf(fileptr, "%s occured:\n", cptr->except->class->name);
+#endif
+    for(int i=1; i <= stack_len(cptr->except); i++){
+        ExceptionType *except = stack_peek(context->stack, i);
+        fprintf(
+            fileptr, "      in 'try' at %s:%d\n",
+            except->tryfile, except->trylineno
+        );
+    }
 }
 
 // -- 42
