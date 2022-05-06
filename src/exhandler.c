@@ -486,7 +486,70 @@ int exhcatch(Context *context, ObjectRef object){
 }
 
 // -- 46
-int exhfinally(Context *cptr){}
+int exhfinally(Context *context){
+    ExceptionType *except;
+    ExceptionType self;
+
+    if(context == NULL){ context = exhget_context(NULL); }
+
+    self = *(except = stack_pop(context->stack));
+    free(except);
+    context->except=stack_len(context->stack) ? stack_peek(context->stack) : 0;
+    if(stack_len(context->stack) == 0){
+        int restored = exhresore_handlers(context);
+        if(self.state = PENDING_STATE){
+            if(self.class == FailedAssertionError){
+                exhhandle_assertion(
+                    context, EXH_ABORT, self.data, self.filename, self.lineno
+                );
+            }
+            else if(exhis_derived(self.class, RuntimeError) && restored){
+                stack_delete(context->stack);
+                if(EXHANDLER_MULTI_THREADING){
+                    EXHANDLER_THREAD_MUTEX_FUNC(1);
+                    free(dict_remove(contextDict, EXHANDLER_THREAD_ID_FUNC()));
+                    EXHANDLER_THREAD_MUTEX_FUNC(0);
+                }else{
+                    context->stack = NULL;
+                }
+                raise(self.class->signum);
+            }else if(self.class == ReturnEvent){
+                stack_delete(context->stack);
+                if(EXHANDLER_MULTI_THREADING){
+                    EXHANDLER_THREAD_MUTEX_FUNC(1);
+                    free(dict_remove(contextDict, EXHANDLER_THREAD_ID_FUNC()));
+                    EXHANDLER_THREAD_MUTEX_FUNC(0);
+                }else{
+                    context->stack = NULL;
+                }
+                EXH_LONGJMP(*(EXH_JMP_BUF*)self.data, 1);
+            }else{
+                fprintf(
+                    stderr, "%s lost: file \"%s\", line %d.\n",
+                    self.class->name, self.filename, self.lineno
+                );
+            }
+        }
+        stack_delete(context->stack);
+        if(EXHANDLER_MULTI_THREADING){
+            EXHANDLER_THREAD_MUTEX_FUNC(1);
+            free(dict_remove(contextDict, EXHANDLER_THREAD_ID_FUNC()));
+            EXHANDLER_THREAD_MUTEX_FUNC(0);
+        }else{ context->stack = NULL; }
+    }else{
+        if(self.state == PENDING_STATE){
+            if(self.class == ReturnEvent && self.first){
+                EXH_LONGJMP(*(EXH_JMP_BUF*)self.data, 1);
+            }else{
+                exhthrow(
+                    context, self.class, self.data, self.filename, self.lineno
+                );
+            }
+        }
+    }
+
+    return 0;
+}
 void exhreturn(Context *cptr){}
 int exhcheck_begin(
     Context *cptr, int *checked, char *filename, int lineno

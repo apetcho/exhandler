@@ -660,6 +660,13 @@ void exhthrow(
  * @return int 
  */
 int exhcatch(Context *context, ObjectRef exceptObj);
+
+/**
+ * @brief Resolve at the end of 'finally'
+ * 
+ * @param context 
+ * @return int 
+ */
 int exhfinally(Context *context);
 void exhreturn(Context *context);
 int exhcheck_begin(Context *context, int *checked, char *filename, int lineno);
