@@ -493,10 +493,20 @@ static int calculate_hash(Dict *dict, unsigned key){
     return value;
 }
 
-// ---
 // -- 32
 void* dict_get(Dict *dict, int key){
+    assert(dict != NULL);
+    List *list;
+    HNode *node;
 
+    list = dict->bucket[calculate_hash(dict, key)];
+    node = list_get_head(list);
+    while(node != NULL){
+        if(node->key == key){ return node->data; }
+        node = list_get_next(list);
+    }
+
+    return NULL;
 }
 
 // -- 33

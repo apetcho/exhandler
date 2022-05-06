@@ -340,6 +340,14 @@ void dict_delete(Dict *dict);
  * @param dict 
  */
 void dict_delete_with_data(Dict *dict);
+
+/**
+ * @brief Find data node for a given key
+ * 
+ * @param dict 
+ * @param key 
+ * @return void* 
+ */
 void* dict_get(Dict *dict, int key);
 void dict_put(Dict *dict, int key, void *data);
 void* dict_remove(Dict *dict, int key);
