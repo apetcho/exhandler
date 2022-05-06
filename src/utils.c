@@ -436,6 +436,7 @@ List* list_merge(List *list1, List* list2){
 /********************************************************************/
 /*              Dictionary Data Structure Implementation            */
 /********************************************************************/
+// -- 29
 Dict* dict_new(){
     Dict *dict;
     dict = malloc(sizeof(Dict));
@@ -448,7 +449,17 @@ Dict* dict_new(){
     return dict;
 }
 
-void dict_delete(Dict *dict){}
+// -- 30
+void dict_delete(Dict *dict){
+    assert(dict != NULL);
+    for(int i=0; i < EXH_HASH_BUCKET_SIZE; i++){
+        list_delete(dict->bucket[i]);
+    }
+    free(dict->bucket);
+    free(dict);
+}
+
+// -- 31
 void dict_delete_with_data(Dict *dict){}
 void* dict_get(Dict *dict, int key){}
 void dict_put(Dict *dict, int key, void *data){}

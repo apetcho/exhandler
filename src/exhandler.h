@@ -321,6 +321,12 @@ struct Dict{
  * @return Dict* 
  */
 Dict* dict_new();
+
+/**
+ * @brief Free hash table.
+ * 
+ * @param dict 
+ */
 void dict_delete(Dict *dict);
 void dict_delete_with_data(Dict *dict);
 void* dict_get(Dict *dict, int key);
