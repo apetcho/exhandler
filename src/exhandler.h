@@ -413,8 +413,19 @@ void* exhmem_calloc(
  */
 void* exhmem_malloc(
     Context *cptr, int size, char *filename, int lineno);
+
+/**
+ * @brief Change the size of previously allocated memory segment
+ * 
+ * @param cptr      Pointer to thread exception context
+ * @param mem       Pointer to original block
+ * @param size      Size of one element.
+ * @param filename  Name of source file name where the called was made
+ * @param lineno    Sourfe file line number.
+ * @return void*    Pointer to allocated memory
+ */
 void* exhmem_realloc(
-    Context *cptr, void *mem, int num, int size, char *filename, int lineno);
+    Context *cptr, void *mem, int size, char *filename, int lineno);
 
 
 // -- assertion api --
