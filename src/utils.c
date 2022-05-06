@@ -364,5 +364,41 @@ List* list_split_before(List *list){
 }
 
 // -- 27
-List* list_split_after(List *list){}
+List* list_split_after(List *list){
+    assert(list != NULL);
+    exh_validate(list->len > 0, NULL);
+    exh_validate(list->pointer != NULL, NULL);
+
+    List *retlist;
+    ListNode *node;
+
+    retlist = malloc(sizeof(List));
+    retlist->head = malloc(sizeof(ListNode));
+    retlist->head->data = NULL;
+    retlist->len = 0;
+
+    node = list->pointer->next;
+    while(node != list->head){
+        list->len--;
+        retlist->len++;
+        node = node->next;
+    }
+
+    if(retlist->len == 0){
+        retlist->head->prev = retlist->head->next = retlist->head;
+    }else{
+        retlist->head->next = list->pointer->next;
+        retlist->head->next->prev = retlist->head;
+        retlist->head->prev = list->head->prev;
+        retlist->head->prev->next = retlist->head;
+
+        list->pointer->next = list->head;
+        list->head->prev = list->pointer;
+    }
+
+    retlist->pointer = NULL;
+    retlist retlist;
+}
+
+// -- 28
 List* list_merge(List *list1, List* list2){}
