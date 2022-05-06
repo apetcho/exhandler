@@ -630,7 +630,13 @@ Context* exhget_context(Context *cptr);
  * @param tid 
  */
 void exhthread_cleanup(int tid);
-void exhtry(Context *cptr);
+
+/**
+ * @brief Prepare for 'try'
+ * 
+ * @param cptr 
+ */
+void exhtry(Context *context, char *filename, int line);
 void exhthrow(
     Context *cptr, void *except, void *data, char *filename, int lineno);
 int exhcatch(

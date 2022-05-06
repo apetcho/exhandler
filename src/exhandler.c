@@ -399,7 +399,30 @@ void exhthread_cleanup(int tid){
 }
 
 // -- 43
-void exhtry(Context *cptr){}
+void exhtry(Context *context, char *filename, int lineno){
+#if EXHANDLER_MULTI_THREADING
+    EXHANDLER_THREAD_MUTEX_FUNC(1);
+    if(contextDict == NULL){
+        contextDict = dict_new();
+    }
+    EXHANDLER_THREAD_MUTEX_FUNC(0);
+#endif
+    int first;
+    if(first = (context == NULL)){ context = exhget_context(NULL);}
+    if(context == NULL){ context = exhnew_context(); }
+
+    exhinstall_handlers(context);
+    stack_push(
+        context->stack, context->except=calloc(1, sizeof(ExceptionType))
+    );
+    context->except->first = first;
+    context->except->tryfile = filename;
+    context->except->trylineno = lineno;
+
+    exhprint_debug(context, "exhtry");
+}
+
+// -- 44
 void exhthrow(
     Context *cptr, void *except, void *data, char *filename, int lineno
 ){}
