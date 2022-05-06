@@ -248,6 +248,13 @@ void* list_get_next(List *list);
  * @return void* 
  */
 void* list_get_prev(List *list);
+
+/**
+ * @brief Return the number of nodes in list.
+ * 
+ * @param list 
+ * @return int 
+ */
 int list_len(List *list);
 void* list_find(List *list, void *data);
 List* list_split_before(List *list);

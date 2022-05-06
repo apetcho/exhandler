@@ -305,7 +305,12 @@ void* list_get_prev(List *list){
 }
 
 // -- 24
-int list_len(List *list){}
+int list_len(List *list){
+    assert(list != NULL);
+    return list->len;
+}
+
+// -- 25
 void* list_find(List *list, void *data){}
 List* list_split_before(List *list){}
 List* list_split_after(List *list){}
