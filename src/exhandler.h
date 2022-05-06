@@ -62,6 +62,17 @@ void stack_delete_with_data(Stack *stack);
  * @param object 
  */
 void stack_push(Stack *stack, void *object);
+
+/**
+ * @brief Pop object from stack buffer.
+ * 
+ * This routine removes an object from the top of the stack buffer.
+ * This operation will fail if the stack is empty when DEBUG flag is enabled
+ * otherwise will return NULL.
+ * 
+ * @param stack 
+ * @return void* 
+ */
 void* stack_pop(Stack *stack);
 void* stack_peek(Stack *stack, int n);
 int stack_len(Stack *);
@@ -158,9 +169,9 @@ void* exhmem_realloc(
 #define assert(e)
 #endif
 
-#define exh_validate(e, r)          \
-    if(e){}                         \
-    else{ assert(e); return r; } 
+#define exh_validate(cond, retval)             \
+    if(cond){}                                 \
+    else{ assert(e); return (retval); } 
 
 #define exh_check(e, n) \
     if(e){} \

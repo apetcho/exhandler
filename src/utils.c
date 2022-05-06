@@ -48,8 +48,13 @@ void stack_push(Stack *stack, void *object){
     stack->data[stack->index++] = object;
 }
 
+// -- 05
+void* stack_pop(Stack *stack){
+    assert(stack != NULL);
+    exh_validate(stack->index > 0, NULL);
+    return stack->data[--stack->index];
+}
 
-void* stack_pop(Stack *stack){}
 void* stack_peek(Stack *stack, int n){}
 int stack_len(Stack *stack){}
 
