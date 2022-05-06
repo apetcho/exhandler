@@ -390,7 +390,7 @@ int dict_len(Dict *dict);
     cptr, p, size, __FILE__, __LINE__)
 
 /**
- * @brief Allocate a clean segment of memory
+ * @brief Allocate a clean memory segment
  * 
  * @param cptr      Pointer to thread exception context 
  * @param num       Number of elements
@@ -401,8 +401,18 @@ int dict_len(Dict *dict);
  */
 void* exhmem_calloc(
     Context *cptr, int num, int size, char *filename, int lineno);
+
+/**
+ * @brief Allocate a memory segment
+ * 
+ * @param cptr      Pointer to thread exception context 
+ * @param size      Size of one element.
+ * @param filename  Name of source file name where the called was made
+ * @param lineno    Sourfe file line number.
+ * @return void*    Pointer to allocated memory
+ */
 void* exhmem_malloc(
-    Context *cptr, int num, int size, char *filename, int lineno);
+    Context *cptr, int size, char *filename, int lineno);
 void* exhmem_realloc(
     Context *cptr, void *mem, int num, int size, char *filename, int lineno);
 
