@@ -152,7 +152,7 @@ static void exhmutex(int mode){
         else if(tid != 0 && tid != pthread_self()){
             fprintf(
                 stderr,
-                "Exhandler internal error: thread attempts to unlock without "
+                "exhandler internal error: thread attempts to unlock without "
                 "holding lock\n"
             );
         }
@@ -203,8 +203,34 @@ Context* exhget_context(Context *cptr){
 #endif
 }
 
+// -----------------------------------------------------------------
+// exhnew_context() :: create exception handling context for thread
+// -----------------------------------------------------------------
+#if EXHANDLER_USE_PTHREAD
+static Context* exhnew_context(void){
+    Context *context;
+    context = calloc(1, sizeof(Context));
+    if(context == NULL){
+        fprintf(stderr, "exhandler internal error: out of memory.\n");
+    }
+    EXHANDLER_THREAD_MUTEX_FUNC(1);
+    dict_put(contextDict, EXHANDLER_THREAD_ID_FUNC(), context);
+    EXHANDLER_THREAD_MUTEX_FUNC(0);
+    exhprint_debug(context, "exhnew_conext");
+
+    return context;
+}
+#else
+#define exhnew_context()    NULL
+#endif
+
+
 // -- 42
-void exhthread_cleanup(int tid){}
+void exhthread_cleanup(int tid){
+
+}
+
+// -- 43
 void exhtry(Context *cptr){}
 void exhthrow(
     Context *cptr, void *except, void *data, char *filename, int lineno
