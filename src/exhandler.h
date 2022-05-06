@@ -240,6 +240,13 @@ void* list_get_last(List *list);
  * @return void* 
  */
 void* list_get_next(List *list);
+
+/**
+ * @brief Get previous data object value.
+ * 
+ * @param list 
+ * @return void* 
+ */
 void* list_get_prev(List *list);
 int list_len(List *list);
 void* list_find(List *list, void *data);
