@@ -651,8 +651,16 @@ void exhtry(Context *context, char *filename, int line);
  */
 void exhthrow(
     Context *cptr, void *except, void *data, char *filename, int lineno);
+
+/**
+ * @brief Check if exception can be caught.
+ * 
+ * @param cptr 
+ * @param object 
+ * @return int 
+ */
 int exhcatch(
-    Context *cptr, ObjectRef object);
+    Context *cptr, ObjectRef exceptObj);
 int exhfinally(Context *cptr);
 void exhreturn(Context *cptr);
 int exhcheck_begin(

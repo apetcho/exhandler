@@ -461,6 +461,15 @@ void exhthrow(
     }
 }
 
+// --
+static int exhis_derived(ObjectRef objref, ObjectRef base){
+    while(objref->parent != NULL && objref != base){
+        objref = objref->parent;
+    }
+
+    return objref == base;
+}
+
 // -- 45
 int exhcatch(
     Context *cptr, ObjectRef object){}
