@@ -389,6 +389,16 @@ int dict_len(Dict *dict);
 #define exh_mem_realloc(p, size) exhmem_realloc(\
     cptr, p, size, __FILE__, __LINE__)
 
+/**
+ * @brief Allocate a clean segment of memory
+ * 
+ * @param cptr      Pointer to thread exception context 
+ * @param num       Number of elements
+ * @param size      Size of one element.
+ * @param filename  Name of source file name where the called was made
+ * @param lineno    Sourfe file line number.
+ * @return void*    Pointer to allocated memory
+ */
 void* exhmem_calloc(
     Context *cptr, int num, int size, char *filename, int lineno);
 void* exhmem_malloc(
