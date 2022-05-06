@@ -191,7 +191,7 @@ Scope exhget_scope(Context *cptr){
 
 // -- 41
 Context* exhget_context(Context *cptr){
-#if EXHANDLER_MULTI_THREADING
+#ifdef EXHANDLER_MULTI_THREADING
     EXHANDLER_THREAD_MUTEX_FUNC(1)
     if(cptr == NULL && contextDict != NULL){
         cptr = dict_get(contextDict, EXHANDLER_THREAD_ID_FUNC());
@@ -224,6 +224,20 @@ static Context* exhnew_context(void){
 #define exhnew_context()    NULL
 #endif
 
+// -----------------------------------------------------------------
+// exhget_description()
+// -----------------------------------------------------------------
+static char* exhget_description(void){
+    Context *context = exhget_context(NULL);
+    exhprint_debug(context, "exhget_description");
+    sprintf(
+        context->description, "%s: file \"%s\", line %d.",
+        context->except->object->name, context->except->filename,
+        context->except->lineno
+    );
+
+    return context->description;
+}
 
 // -- 42
 void exhthread_cleanup(int tid){

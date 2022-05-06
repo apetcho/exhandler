@@ -503,7 +503,7 @@ struct ExceptionType{
     EXH_JMP_BUF finalbuf;
     ObjectRef object;
     void *data;
-    char *erfile;
+    char *filename;
     int lineno;
     int ready;
     Scope scope;
