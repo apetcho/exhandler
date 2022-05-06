@@ -232,12 +232,22 @@ static char* exhget_description(void){
     exhprint_debug(context, "exhget_description");
     sprintf(
         context->description, "%s: file \"%s\", line %d.",
-        context->except->object->name, context->except->filename,
+        context->except->class->name, context->except->filename,
         context->except->lineno
     );
 
     return context->description;
 }
+
+// -----------------------------------------------------------------
+// exhget_class() :: get current exception class
+// -----------------------------------------------------------------
+static ObjectRef exhget_class(void){
+    Context *context = exhget_context(NULL);
+    exhprint_debug(context, "exhget_class");
+    return context->except->class;
+}
+
 
 // -- 42
 void exhthread_cleanup(int tid){

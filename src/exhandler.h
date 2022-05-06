@@ -501,7 +501,7 @@ struct ExceptionType{
     State state;
     EXH_JMP_BUF throwbuf;
     EXH_JMP_BUF finalbuf;
-    ObjectRef object;
+    ObjectRef class;
     void *data;
     char *filename;
     int lineno;
@@ -512,7 +512,7 @@ struct ExceptionType{
     char *tryfile;
     int trylineno;
     ObjectRef (*get_class)(void);
-    char* (*describe)(void); // getMessage
+    char* (*get_description)(void); // getMessage
     void* (*get_data)(void);
     void (*print_stacktrace)(FILE *);
 };
