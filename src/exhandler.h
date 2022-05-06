@@ -90,6 +90,12 @@ void* stack_pop(Stack *stack);
  * @return void* 
  */
 void* stack_peek(Stack *stack, int n);
+
+/**
+ * @brief Get the number of object in stack buffer.
+ * 
+ * @return int 
+ */
 int stack_len(Stack *);
 
 // ----------------------------------------------------------------------

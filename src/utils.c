@@ -64,5 +64,8 @@ void* stack_peek(Stack *stack, int n){
 }
 
 // -- 07
-int stack_len(Stack *stack){}
+int stack_len(Stack *stack){
+    assert(stack != NULL);
+    return stack->index;
+}
 
