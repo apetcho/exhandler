@@ -345,6 +345,36 @@ static int exhinstall_handlers(Context *context){
     return stored;
 }
 
+// -----------------------------------------------------------------
+// exhrestore_handlers() :: restore signal/trap handlers if needed
+// -----------------------------------------------------------------
+static int exhresore_handlers(Context *context){
+    int restored = 0;
+    EXHANDLER_THREAD_MUTEX_FUNC(1);
+    if(EXHANDLER_MULTI_THREADING && EXHANDLER_SHARE && --numThreadsTry == 0){
+        signal(SIGABRT, shared_abort_handlerfn);
+        signal(SIGFPE, shared_fpe_handlerfn);
+        signal(SIGILL, shared_ill_handlerfn);
+        signal(SIGSEGV, shared_segv_handlerfn);
+#ifdef SIGBUS
+        signal(SIGBUS, shared_bus_handlerfn);
+#endif
+        restored = 1;
+    }else if(!EXHANDLER_MULTI_THREADING || !EXHANDLER_SHARE){
+        signal(SIGABRT, context->aborthandler);
+        signal(SIGFPE, context->fpehandler);
+        signal(SIGILL, context->illhandler);
+        signal(SIGSEGV, context->segvhandler);
+#ifdef SIGBUS
+        signal(SIGBUS, context->bushandler);
+#endif
+        restored = 1;
+    }
+    EXHANDLER_THREAD_MUTEX_FUNC(0);
+
+    return restored;
+}
+
 // -- 42
 void exhthread_cleanup(int tid){
 
