@@ -180,7 +180,23 @@ void list_insert_after(List *list, void *data){
 }
 
 // -- 15
-void list_remove_head(List *list){}
+void list_remove_head(List *list){
+    assert(list != NULL);
+    exh_validate(list->len > 0, NULL);
+    ListNode *node;
+    void *data;
+
+    node = list->head->next;
+    data = node->data;
+    list->head->next->prev = list->head;
+    free(node);
+    list->pointer = NULL;
+    list->len--;
+
+    return data;
+}
+
+// -- 16
 void list_remove_tail(List *list){}
 void list_remove_last(List *list){}
 void list_remove(List *list){}

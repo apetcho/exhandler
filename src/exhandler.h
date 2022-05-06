@@ -177,6 +177,12 @@ void list_insert_before(List *list, void *data);
  * @param data 
  */
 void list_insert_after(List *list, void *data);
+
+/**
+ * @brief Remove head node from list.
+ * 
+ * @param list 
+ */
 void list_remove_head(List *list);
 void list_remove_tail(List *list);
 void list_remove_last(List *list);
