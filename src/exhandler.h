@@ -25,7 +25,7 @@ typedef enum State State;
 struct Stack{
     void **data;
     int size;
-    int index;
+    int len;
 };
 
 /**
@@ -110,9 +110,14 @@ struct ListNode{
 struct List{
     ListNode *head;
     ListNode *tail;
-    int count;
+    int len;
 };
 
+/**
+ * @brief Create an empty list
+ * 
+ * @return List* 
+ */
 List* list_new(void);
 void list_delete(ListNode *list);
 void list_delete_with_data(List *data);
@@ -129,10 +134,10 @@ void* list_get_tail(List *list);
 void* list_get_last(List *list);
 void* list_get_next(List *list);
 void* list_get_prev(List *list);
-int list_len();
+int list_len(List *list);
 void* list_find(List *list, void *data);
 List* list_split_before(List *list);
-List* list_split_after();
+List* list_split_after(List *list);
 List* list_merge(List *list1, List* list2);
 
 
