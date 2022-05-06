@@ -176,7 +176,18 @@ static void exhprint_debug(Context *cptr, char *name){
 #endif
 
 // -- 40
-Scope exhget_scope(Context *cptr){}
+Scope exhget_scope(Context *cptr){
+    Scope scope;
+    if(cptr == NULL){
+        cptr = exhget_context(NULL);
+    }
+    exhprint_debug(cptr, "exhget_scope");
+    if(cptr == NULL || cptr->except == NULL){ scope = OUTSITE_SCOPE; }
+    else{
+        scope = ((ExceptionType*)stack_peek(cptr->stack, 1))->scope;
+    }
+    return scope;
+}
 
 // -- 41
 Context* exhget_context(Context *cptr){}

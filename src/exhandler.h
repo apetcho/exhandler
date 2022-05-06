@@ -486,7 +486,14 @@ struct Type{
     int signum;
 };
 
-enum Scope{ OUT_SCOPE=-1, IN_SCOPE, TRY_SCOPE, CATCH_SCOPE, FINALLY_SCOPE };
+enum Scope{
+    OUTSITE_SCOPE=-1,
+    INTERNAL_SCOPE,
+    TRY_SCOPE,
+    CATCH_SCOPE,
+    FINALLY_SCOPE
+};
+
 enum State{ EMPTY_STATE, PENDING_STATE, CAUGHT_STATE };
 
 struct ExceptionType{
@@ -600,6 +607,12 @@ EXH_DECLARE(BusError, RuntimeError);                    /* SIGABRT */
 
 #define pending     (exhget_context(cptr)->except->state == PENDING_STATE)
 
+/**
+ * @brief Get exception block scope
+ * 
+ * @param cptr 
+ * @return Scope 
+ */
 Scope exhget_scope(Context *cptr);
 Context* exhget_context(Context *cptr);
 void exhthread_cleanup(int tid);
