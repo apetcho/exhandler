@@ -614,6 +614,13 @@ EXH_DECLARE(BusError, RuntimeError);                    /* SIGABRT */
  * @return Scope 
  */
 Scope exhget_scope(Context *cptr);
+
+/**
+ * @brief Get exception handling context of current thread.
+ * 
+ * @param cptr 
+ * @return Context* 
+ */
 Context* exhget_context(Context *cptr);
 void exhthread_cleanup(int tid);
 void exhtry(Context *cptr);

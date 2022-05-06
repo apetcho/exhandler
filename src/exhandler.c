@@ -190,7 +190,20 @@ Scope exhget_scope(Context *cptr){
 }
 
 // -- 41
-Context* exhget_context(Context *cptr){}
+Context* exhget_context(Context *cptr){
+#if EXHANDLER_MULTI_THREADING
+    EXHANDLER_THREAD_MUTEX_FUNC(1)
+    if(cptr == NULL && contextDict != NULL){
+        cptr = dict_get(contextDict, EXHANDLER_THREAD_ID_FUNC());
+    }
+    EXHANDLER_THREAD_MUTEX_FUNC(0)
+    return cptr;
+#else
+    return &defaultContext;
+#endif
+}
+
+// -- 42
 void exhthread_cleanup(int tid){}
 void exhtry(Context *cptr){}
 void exhthrow(
