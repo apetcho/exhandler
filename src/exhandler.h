@@ -349,6 +349,14 @@ void dict_delete_with_data(Dict *dict);
  * @return void* 
  */
 void* dict_get(Dict *dict, int key);
+
+/**
+ * @brief Add node to hash table.
+ * 
+ * @param dict 
+ * @param key 
+ * @param data 
+ */
 void dict_put(Dict *dict, int key, void *data);
 void* dict_remove(Dict *dict, int key);
 int dict_len(Dict *dict); 

@@ -510,6 +510,17 @@ void* dict_get(Dict *dict, int key){
 }
 
 // -- 33
-void dict_put(Dict *dict, int key, void *data){}
+void dict_put(Dict *dict, int key, void *data){
+    assert(dict != NULL);
+    exh_validate(data != 0, EXH_NOTHING);
+    HNode *node;
+    node = malloc(sizeof(HNode));
+    node->key = key;
+    node->data = data;
+    list_prepend(dict->bucket[calculate_hash(dict, key)], node);
+    dict->len++;
+}
+
+// -- 34
 void* dict_remove(Dict *dict, int key){}
 int dict_len(Dict *dict){}
