@@ -121,7 +121,7 @@ struct List{
 List* list_new(void);
 
 /**
- * @brief Free list nut not user data.
+ * @brief Free list but not user data.
  * 
  * This routine free the list handle and the nodes, but does not free the user
  * data.
@@ -129,7 +129,17 @@ List* list_new(void);
  * @param list 
  */
 void list_delete(List *list);
-void list_delete_with_data(List *data);
+
+/**
+ * @brief Free list including user data.
+ * 
+ * The list handle and all nodes in the list are freeed.
+ * The client of this routine is responsible that all nodes was allocated
+ * with routines (e.g malloc or calloc of stdlib.h) compatible with free.
+ * 
+ * @param data 
+ */
+void list_delete_with_data(List *list);
 void list_prepend(List *list, void *data);
 void list_append(List *list, void *data);
 void list_insert_before(List *list, void *data);

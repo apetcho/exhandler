@@ -97,10 +97,30 @@ void list_delete(List *list){
         cursor = node;
     }
     free(list->head);
+    list->head = NULL;
     free(list);
+    list = NULL;
 }
 
-void list_delete_with_data(List *data){}
+// -- 10
+void list_delete_with_data(List *list){
+    assert(list != NULL);
+    ListNode *cursor;
+    cursor = list->head->next;
+    while(cursor != list->head){
+        ListNode *node;
+        node = cursor->next;
+        free(cursor->data);
+        free(cursor);
+        cursor = node;
+    }
+    free(list->head);
+    list->head = NULL;
+    free(list);
+    list = NULL;
+}
+
+// -- 11
 void list_prepend(List *list, void *data){}
 void list_append(List *list, void *data){}
 void list_insert_before(List *list, void *data){}
