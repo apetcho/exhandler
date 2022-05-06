@@ -165,7 +165,21 @@ void list_insert_before(List *list, void *data){
 }
 
 // -- 14
-void list_insert_after(List *list, void *data){}
+void list_insert_after(List *list, void *data){
+    assert(list != NULL);
+    exh_validate(list->pointer != NULL, EXH_NOTHING);
+    ListNode *node;
+    node = malloc(sizeof(*node));
+    node->data = data;
+    node->next->prev = node;
+    list->pointer->next->prev = node;
+    list->pointer->next->prev = list->pointer;
+    node->prev = list->pointer;
+    list->pointer = node;
+    list->len++;
+}
+
+// -- 15
 void list_remove_head(List *list){}
 void list_remove_tail(List *list){}
 void list_remove_last(List *list){}

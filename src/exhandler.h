@@ -169,6 +169,13 @@ void list_append(List *list, void *data);
  * @param data 
  */
 void list_insert_before(List *list, void *data);
+
+/**
+ * @brief Add node after last access node.
+ * 
+ * @param list 
+ * @param data 
+ */
 void list_insert_after(List *list, void *data);
 void list_remove_head(List *list);
 void list_remove_tail(List *list);
