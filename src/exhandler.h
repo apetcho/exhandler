@@ -256,6 +256,15 @@ void* list_get_prev(List *list);
  * @return int 
  */
 int list_len(List *list);
+
+/**
+ * @brief Find data in list.
+ * 
+ * @param list 
+ * @param data 
+ * @return void* NULL if data is not in list otherwise return the object data 
+ * value;
+ */
 void* list_find(List *list, void *data);
 List* list_split_before(List *list);
 List* list_split_after(List *list);

@@ -311,7 +311,23 @@ int list_len(List *list){
 }
 
 // -- 25
-void* list_find(List *list, void *data){}
+void* list_find(List *list, void *data){
+    assert(list != NULL);
+    ListNode *node;
+    node = list->head->next;
+    while(node != list->head && node->data != data){
+        node = node->next;
+    }
+
+    if(node->data == data){
+        list->pointer = node;
+        return data;
+    }
+
+    return NULL;
+}
+
+// -- 26
 List* list_split_before(List *list){}
 List* list_split_after(List *list){}
 List* list_merge(List *list1, List* list2){}
