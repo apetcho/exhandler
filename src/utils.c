@@ -17,7 +17,15 @@ Stack* stack_new(void){
     return stack;
 }
 
-void stack_delete(Stack *stack){}
+// -- 02
+void stack_delete(Stack *stack){
+    assert(stack != NULL);
+    free(stack->data);
+    stack->data = NULL;
+    free(stack);
+    stack = NULL;
+}
+
 void stack_delete_with_data(Stack *stack){}
 void stack_push(Stack *stack, void *object){}
 void* stack_pop(Stack *stack){}

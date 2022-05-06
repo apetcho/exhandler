@@ -36,6 +36,12 @@ struct Stack{
  * @return Stack* Pointer to the stack newly created.
  */
 Stack* stack_new(void);
+
+/**
+ * @brief Free the stack buffer.
+ * 
+ * @param stack 
+ */
 void stack_delete(Stack *stack);
 void stack_delete_with_data(Stack *stack);
 void stack_push(Stack *stack, void *object);
