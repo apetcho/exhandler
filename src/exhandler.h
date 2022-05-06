@@ -200,8 +200,9 @@ void* list_remove_tail(List *list);
  * @return void* 
  */
 void* list_remove(List *list, void *data);
+
 /**
- * @brief 
+ * @brief Remove last accessed node from list.
  * 
  * @param list 
  * @return void* 

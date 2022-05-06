@@ -235,7 +235,25 @@ void list_remove(List *list, void *data){
 }
 
 // -- 18
-void list_remove_last(List *list){}
+void list_remove_last(List *list){
+    assert(list != NULL);
+    exh_validate(list->pointer != NULL, NULL);
+    ListNode *node;
+    void *data;
+
+    data = list->pointer->data;
+    node = list->pointer->next;
+    list->pointer->next->prev = list->pointer->prev;
+    list->pointer->prev->next = list->pointer->next;
+    free(list->pointer);
+
+    list->pointer = node;
+    list->len--;
+
+    return data;
+}
+
+// -- 19
 void* list_get_head(List *list){}
 void* list_get_tail(List *list){}
 void* list_get_last(List *list){}
