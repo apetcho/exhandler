@@ -5,7 +5,9 @@
 #include<stdlib.h>
 #include<stdio.h>
 
-#define TINY_EXHANDLER 1        /* just a marker for the library */
+#define EXH_TINY_EXHANDLER 1        /* just a marker for the library */
+
+#define EXH_NOTHING
 
 typedef struct Stack Stack;
 typedef struct ListNode ListNode;
@@ -156,6 +158,16 @@ void list_prepend(List *list, void *data);
  * @param data 
  */
 void list_append(List *list, void *data);
+
+/**
+ * @brief Add node before last accessed node.
+ * 
+ * This routine add the specified data object value in the specified list
+ * just before the last accessed node.
+ * 
+ * @param list 
+ * @param data 
+ */
 void list_insert_before(List *list, void *data);
 void list_insert_after(List *list, void *data);
 void list_remove_head(List *list);
