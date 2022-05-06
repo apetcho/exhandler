@@ -148,6 +148,13 @@ void list_delete_with_data(List *list);
  * @param data 
  */
 void list_prepend(List *list, void *data);
+
+/**
+ * @brief Add node to tail of list.
+ * 
+ * @param list 
+ * @param data 
+ */
 void list_append(List *list, void *data);
 void list_insert_before(List *list, void *data);
 void list_insert_after(List *list, void *data);

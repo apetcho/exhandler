@@ -128,14 +128,28 @@ void list_prepend(List *list, void *data){
     node->data = data;
     node->next->prev = node;
     list->head->next->prev = node;
-    node->prev = list->head;
     list->head->next->prev = list->head;
+    node->prev = list->head;
     list->pointer = node;
     list->len++;
 }
 
 // -- 12
-void list_append(List *list, void *data){}
+void list_append(List *list, void *data){
+    assert(list != NULL);
+    ListNode *node;
+    node = malloc(sizeof(*node));
+
+    node->data = data;
+    node->prev->next = node;
+    list->head->prev->prev = node;
+    list->head->prev->next = list->head;
+    node->next = list->head;
+    list->pointer = node;
+    list->len++;
+}
+
+// -- 13
 void list_insert_before(List *list, void *data){}
 void list_insert_after(List *list, void *data){}
 void list_remove_head(List *list){}
