@@ -623,6 +623,12 @@ Scope exhget_scope(Context *cptr);
  * @return Context* 
  */
 Context* exhget_context(Context *cptr);
+
+/**
+ * @brief Cleanup exception handling for ceased thread.
+ * 
+ * @param tid 
+ */
 void exhthread_cleanup(int tid);
 void exhtry(Context *cptr);
 void exhthrow(

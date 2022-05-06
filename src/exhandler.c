@@ -377,7 +377,25 @@ static int exhresore_handlers(Context *context){
 
 // -- 42
 void exhthread_cleanup(int tid){
-
+#if EXHANDLER_MULTI_THREADING
+    exh_validate(tid != EXHANDLER_ID_FUNC(), EXH_NOTHING);
+    if(tid == -1){
+        tid = EXHANDLER_THREAD_ID_FUNC();
+    }
+    EXHANDLER_THREAD_MUTEX_FUNC(1);
+    if(contextDict != NULL){
+        Context *context;
+        context = dict_get(contextDict, tid);
+        if(context != NULL){
+            exhresore_handlers(context);
+            if(context->except->checklist != NULL){
+                list_delete_with_data(context->except->checklist);
+            }
+            free(dict_remove(contextDict, tid));
+        }
+    }
+    EXHANDLER_THREAD_MUTEX_FUNC(0);
+#endif
 }
 
 // -- 43
