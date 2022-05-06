@@ -14,7 +14,7 @@ typedef struct ListNode ListNode;
 typedef struct List List;
 typedef struct Dict Dict;
 typedef struct Type *ObjectRef;
-typedef struct Type Object[1];
+typedef struct Type Object; //[1];
 typedef struct ExceptionType ExceptionType;
 typedef struct Context Context;
 typedef enum Scope Scope;
@@ -481,7 +481,8 @@ typedef void (*exh_sighandlerFn)(int);
 
 struct Type{
     int norethrow;
-    ObjectRef master;
+    ObjectRef parent;
+    char *name;
     int signum;
 };
 
