@@ -591,6 +591,45 @@ int exhcheck_begin(
 
 // -- 49
 int exhcheck(
-    Context *cptr, int *checked, ObjectRef object, char *filename, int lineno
-){}
+    Context *context, int *checked, ObjectRef object, char *filename, int lineno
+){
+    typedef struct Check{
+        ObjectRef objref;
+        int lineno;
+    } Check;
+    exhprint_debug(context, "exhcheck");
+    if(!*checked){
+        Check *check;
+        check = list_get_head(context->except->checklist);
+        while(check != NULL){
+            if(object == check->objref){
+                fprintf(
+                    stderr,
+                    "Duplicate catch/%s): file \"%s\", line %d; "
+                    "already caught at line %d.\n",
+                    object->name, filename, lineno, check->lineno
+                );
+                break;
+            }
+            if(exhis_derived(object, check->objref)){
+                fprintf(
+                    stderr, "Superfluous catch(%s): file \"%s\", line %d; "
+                    "already caught by %s at line %d.\n",
+                    object->name, lineno, check->objref->name, check->lineno
+                );
+                break;
+            }
+            check = list_get_next(context->except->checklist);
+        }
+
+        if(check == NULL){
+            check = malloc(sizeof(check));
+            check->objref = object;
+            check->lineno = lineno;
+            list_append(context->except->checklist, check);
+        }
+    }
+
+    return *checked;
+}
 

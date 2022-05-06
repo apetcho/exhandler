@@ -686,6 +686,17 @@ void exhreturn(Context *context);
  * @return int 
  */
 int exhcheck_begin(Context *context, int *checked, char *filename, int lineno);
+
+/**
+ * @brief Perform 'catch' condition check
+ * 
+ * @param context 
+ * @param checked 
+ * @param object 
+ * @param filename 
+ * @param lineno 
+ * @return int 
+ */
 int exhcheck(
     Context *context, int *checked, ObjectRef object,
     char *filename, int lineno
