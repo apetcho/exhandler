@@ -54,6 +54,13 @@ void stack_delete(Stack *stack);
  * @param stack 
  */
 void stack_delete_with_data(Stack *stack);
+
+/**
+ * @brief Push user data object to stack buffer.
+ * 
+ * @param stack 
+ * @param object 
+ */
 void stack_push(Stack *stack, void *object);
 void* stack_pop(Stack *stack);
 void* stack_peek(Stack *stack, int n);

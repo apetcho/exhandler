@@ -38,8 +38,17 @@ void stack_delete_with_data(Stack *stack){
     stack = NULL;
 }
 
+// -- 04
+void stack_push(Stack *stack, void *object){
+    assert(stack != NULL && object != NULL);
+    if(stack->index == stack->size){
+        stack->size += EXH_STACK_SIZE_INCREMENT;
+        stack->data = realloc(stack->data, stack->size*sizeof(void*));
+    }
+    stack->data[stack->index++] = object;
+}
 
-void stack_push(Stack *stack, void *object){}
+
 void* stack_pop(Stack *stack){}
 void* stack_peek(Stack *stack, int n){}
 int stack_len(Stack *stack){}
