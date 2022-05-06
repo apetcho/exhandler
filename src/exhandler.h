@@ -74,6 +74,21 @@ void stack_push(Stack *stack, void *object);
  * @return void* 
  */
 void* stack_pop(Stack *stack);
+
+/**
+ * @brief Get object from stack buffer at index n.
+ * 
+ * @note This operation does adhere to the LIFO principle, but it is possible
+ * with our implementation since the data buffer is a contiguous memory
+ * location where the user data reside.
+ * 
+ * This operation will will fail if DEBUG flag is enabled, otherwise NULL
+ * is returned.
+ * 
+ * @param stack 
+ * @param n 
+ * @return void* 
+ */
 void* stack_peek(Stack *stack, int n);
 int stack_len(Stack *);
 

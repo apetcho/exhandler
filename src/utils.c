@@ -55,6 +55,14 @@ void* stack_pop(Stack *stack){
     return stack->data[--stack->index];
 }
 
-void* stack_peek(Stack *stack, int n){}
+// -- 06
+void* stack_peek(Stack *stack, int n){
+    assert(stack != NULL);
+    exh_validate(stack->index > 0, NULL);
+    exh_validate(n > 0 && n <= stack->index, NULL);
+    return stack->data[stack->index - n];
+}
+
+// -- 07
 int stack_len(Stack *stack){}
 
