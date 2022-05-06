@@ -522,5 +522,26 @@ void dict_put(Dict *dict, int key, void *data){
 }
 
 // -- 34
-void* dict_remove(Dict *dict, int key){}
+void* dict_remove(Dict *dict, int key){
+    assert(dict != NULL);
+    List *list;
+    HNode *node;
+    void *data;
+    list = dict->bucket[calculate_hash(dict, key)];
+    node = list_get_head(list);
+    while(node != NULL){
+        if(node->key == key){
+            list_remove_last(list);
+            data = node->data;
+            free(node);
+            dict->len--;
+            return data;
+        }
+        node = list_get_next(list);
+    }
+
+    return NULL;
+}
+
+// -- 35
 int dict_len(Dict *dict){}

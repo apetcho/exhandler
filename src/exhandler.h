@@ -358,6 +358,14 @@ void* dict_get(Dict *dict, int key);
  * @param data 
  */
 void dict_put(Dict *dict, int key, void *data);
+
+/**
+ * @brief Remove node from hash table.
+ * 
+ * @param dict 
+ * @param key 
+ * @return void* 
+ */
 void* dict_remove(Dict *dict, int key);
 int dict_len(Dict *dict); 
 
