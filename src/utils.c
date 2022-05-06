@@ -401,4 +401,33 @@ List* list_split_after(List *list){
 }
 
 // -- 28
-List* list_merge(List *list1, List* list2){}
+List* list_merge(List *list1, List* list2){
+    assert(list1 != NULL);
+    assert(list2 != NULL);
+    int opt = (((list2->len > 0) << 1)| (list1->len > 0));
+    switch(opt){
+    case 0: // list1 & list2 are empty
+        break;
+    case 1: // list2 is not empty but list1 is empty.
+        break;
+    case 2: // list1 is empty but list2 is not empty.
+        list1->head->next = list2->head->next;
+        list2->head->next->prev = list2->head;
+        list2->head->prev = list2->head->prev;
+        list2->head->prev->next = list1->head;
+        break;
+    case 3: // both list1 & list2 are not empty
+        list2->head->prev->next = list1->head;
+        list1->head->prev->next = list2->head->next;
+        list2->head->next->prev = list1->head->prev;
+        list1->head->prev = list2->head->prev;
+        break;  
+    }
+
+    list1->pointer = NULL;
+    list1->len += list2->len;
+    free(list2->head);
+    free(list2);
+
+    return list1;
+}

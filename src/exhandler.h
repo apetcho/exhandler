@@ -293,6 +293,17 @@ List* list_split_before(List *list);
  * @return List* The list containing nodes after original last accessed node.
  */
 List* list_split_after(List *list);
+
+/**
+ * @brief Concatenate two list
+ * 
+ * The second list is appened to first list. The last accest node of the
+ * resulting list is reset.
+ * 
+ * @param list1 
+ * @param list2 
+ * @return List* The resulting list.
+ */
 List* list_merge(List *list1, List* list2);
 
 
