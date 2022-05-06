@@ -3,7 +3,7 @@
 
 #define EXH_STACK_DEFAULT_SIZE      32
 #define EXH_STACK_SIZE_INCREMENT    32
-#define EXH_HASH_BUCKET_SIZE        1024
+#define EXH_HASH_BUCKET_SIZE        512
 
 /********************************************************************/
 /*               Stack Data Structure Implementation                */
@@ -481,8 +481,25 @@ void dict_delete_with_data(Dict *dict){
     free(dict);
 }
 
+// ---
+static int calculate_hash(Dict *dict, unsigned key){
+    assert(dict != NULL);
+    int value;
+    value = (EXH_HASH_BUCKET_SIZE * ((key * 40503) & 65535)) >> 16;
+    if(value >= EXH_HASH_BUCKET_SIZE || value < 0){
+        fprintf(stderr, "Invalid hash value: %d\n", value);
+    }
+
+    return value;
+}
+
+// ---
 // -- 32
-void* dict_get(Dict *dict, int key){}
+void* dict_get(Dict *dict, int key){
+
+}
+
+// -- 33
 void dict_put(Dict *dict, int key, void *data){}
 void* dict_remove(Dict *dict, int key){}
 int dict_len(Dict *dict){}
