@@ -232,6 +232,13 @@ void* list_get_tail(List *list);
  * @return void* 
  */
 void* list_get_last(List *list);
+
+/**
+ * @brief Get next data object value
+ * 
+ * @param list 
+ * @return void* 
+ */
 void* list_get_next(List *list);
 void* list_get_prev(List *list);
 int list_len(List *list);

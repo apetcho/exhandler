@@ -283,7 +283,17 @@ void* list_get_last(List *list){
 }
 
 // -- 22
-void* list_get_next(List *list){}
+void* list_get_next(List *list){
+    assert(list != NULL);
+    exh_validate(list->pointer != NULL, NULL);
+    if((list->pointer = list->pointer->next) == list->head){
+        list->pointer = NULL;
+        return NULL;
+    }
+    return list->pointer->data;
+}
+
+// -- 23
 void* list_get_prev(List *list){}
 int list_len(List *list){}
 void* list_find(List *list, void *data){}
