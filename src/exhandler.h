@@ -25,7 +25,7 @@ typedef enum State State;
 struct Stack{
     void **data;
     int size;
-    int pointer;
+    int index;
 };
 
 /**
@@ -43,6 +43,16 @@ Stack* stack_new(void);
  * @param stack 
  */
 void stack_delete(Stack *stack);
+
+/**
+ * @brief Free the stack including user data.
+ * 
+ * The user data is freeed using free(). This implies that the caller is
+ * responsible that all user data is allocated using malloc() or calloc()
+ * of C standard library.
+ * 
+ * @param stack 
+ */
 void stack_delete_with_data(Stack *stack);
 void stack_push(Stack *stack, void *object);
 void* stack_pop(Stack *stack);
