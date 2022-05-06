@@ -276,7 +276,13 @@ void* list_get_tail(List *list){
 }
 
 // -- 21
-void* list_get_last(List *list){}
+void* list_get_last(List *list){
+    assert(list != NULL);
+    if(list->pointer == NULL){ return NULL; }
+    return list->pointer->data;
+}
+
+// -- 22
 void* list_get_next(List *list){}
 void* list_get_prev(List *list){}
 int list_len(List *list){}

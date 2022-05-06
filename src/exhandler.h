@@ -224,6 +224,13 @@ void* list_get_head(List *list);
  * @return void* 
  */
 void* list_get_tail(List *list);
+
+/**
+ * @brief Get data object value from the last accessed node.
+ * 
+ * @param list 
+ * @return void* 
+ */
 void* list_get_last(List *list);
 void* list_get_next(List *list);
 void* list_get_prev(List *list);
