@@ -367,6 +367,13 @@ void dict_put(Dict *dict, int key, void *data);
  * @return void* 
  */
 void* dict_remove(Dict *dict, int key);
+
+/**
+ * @brief Get the number of nodes in hash table.
+ * 
+ * @param dict 
+ * @return int 
+ */
 int dict_len(Dict *dict); 
 
 // ----------------------------------------------------------------------

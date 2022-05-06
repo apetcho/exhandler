@@ -544,4 +544,7 @@ void* dict_remove(Dict *dict, int key){
 }
 
 // -- 35
-int dict_len(Dict *dict){}
+int dict_len(Dict *dict){
+    assert(dict != NULL);
+    return dict->len;
+}
