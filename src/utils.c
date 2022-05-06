@@ -436,6 +436,12 @@ List* list_merge(List *list1, List* list2){
 /********************************************************************/
 /*              Dictionary Data Structure Implementation            */
 /********************************************************************/
+
+typedef struct HNode {
+    void *data;
+    int key;
+} HNode;
+
 // -- 29
 Dict* dict_new(){
     Dict *dict;
@@ -460,7 +466,22 @@ void dict_delete(Dict *dict){
 }
 
 // -- 31
-void dict_delete_with_data(Dict *dict){}
+void dict_delete_with_data(Dict *dict){
+    assert(dict != NULL);
+    for(int i=0; i < EXH_HASH_BUCKET_SIZE; i++){
+        HNode *node;
+        node = list_get_head(dict->bucket[i]);
+        while(node != NULL){
+            free(node->data);
+            node = list_get_next(dict->bucket[i]);
+        }
+        list_delete_with_data(dict->bucket[i]);
+    }
+    free(dict->bucket);
+    free(dict);
+}
+
+// -- 32
 void* dict_get(Dict *dict, int key){}
 void dict_put(Dict *dict, int key, void *data){}
 void* dict_remove(Dict *dict, int key){}

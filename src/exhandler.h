@@ -328,6 +328,17 @@ Dict* dict_new();
  * @param dict 
  */
 void dict_delete(Dict *dict);
+
+/**
+ * @brief Free hash table including user data.
+ * 
+ * This routine free the memory that is occupied by the the hash table. The
+ * user data in each entry is also freed using free(). This implies that
+ * the caller is responsible that all of this user data was allocated 
+ * using routines compatible with free.
+ * 
+ * @param dict 
+ */
 void dict_delete_with_data(Dict *dict);
 void* dict_get(Dict *dict, int key);
 void dict_put(Dict *dict, int key, void *data);
