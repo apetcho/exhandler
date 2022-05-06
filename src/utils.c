@@ -80,7 +80,7 @@ List* list_new(void){
     list->head = malloc(sizeof(ListNode));
     list->head->next = list->head;
     list->head->prev = list->head;
-    list->tail = NULL;
+    list->pointer = NULL;
     list->len = 0;
     return list;
 }
@@ -121,7 +121,20 @@ void list_delete_with_data(List *list){
 }
 
 // -- 11
-void list_prepend(List *list, void *data){}
+void list_prepend(List *list, void *data){
+    assert(list != NULL);
+    ListNode *node;
+    node = malloc(sizeof(ListNode));
+    node->data = data;
+    node->next->prev = node;
+    list->head->next->prev = node;
+    node->prev = list->head;
+    list->head->next->prev = list->head;
+    list->pointer = node;
+    list->len++;
+}
+
+// -- 12
 void list_append(List *list, void *data){}
 void list_insert_before(List *list, void *data){}
 void list_insert_after(List *list, void *data){}

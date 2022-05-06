@@ -109,7 +109,7 @@ struct ListNode{
 
 struct List{
     ListNode *head;
-    ListNode *tail;
+    ListNode *pointer;  // Last accessed node
     int len;
 };
 
@@ -140,6 +140,13 @@ void list_delete(List *list);
  * @param data 
  */
 void list_delete_with_data(List *list);
+
+/**
+ * @brief Add node to the head of list.
+ * 
+ * @param list 
+ * @param data 
+ */
 void list_prepend(List *list, void *data);
 void list_append(List *list, void *data);
 void list_insert_before(List *list, void *data);
