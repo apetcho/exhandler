@@ -634,9 +634,21 @@ void exhthread_cleanup(int tid);
 /**
  * @brief Prepare for 'try'
  * 
- * @param cptr 
+ * @param context 
+ * @param filename 
+ * @param line 
  */
 void exhtry(Context *context, char *filename, int line);
+
+/**
+ * @brief Dispatch exception 'throw' 
+ * 
+ * @param cptr 
+ * @param except 
+ * @param data 
+ * @param filename 
+ * @param lineno 
+ */
 void exhthrow(
     Context *cptr, void *except, void *data, char *filename, int lineno);
 int exhcatch(

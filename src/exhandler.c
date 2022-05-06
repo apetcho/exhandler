@@ -424,8 +424,44 @@ void exhtry(Context *context, char *filename, int lineno){
 
 // -- 44
 void exhthrow(
-    Context *cptr, void *except, void *data, char *filename, int lineno
-){}
+    Context *context, void *exceptObj, void *data, char *filename, int lineno
+){
+    exhprint_debug(context, "exhthrow");
+    if(context == NULL){
+        context = exhget_context(NULL);
+    }
+
+    if(context==NULL || context->stack==NULL || stack_len(context->stack)==0){
+        fprintf(
+            stderr, "%s lost: file \"%s\", line %d.\n",
+            ((ObjectRef)exceptObj)->name, filename, lineno
+        );
+        return;
+    }
+    if(((ObjectRef)exceptObj)->norethrow){
+        context->except->class = (ObjectRef)exceptObj;
+        context->except->data = data;
+        context->except->filename = filename;
+        context->except->lineno = lineno;
+        context->except->get_description = exhget_description;
+        context->except->get_data = exhget_data;
+        context->except->print_stacktrace = exhprint_stacktrace;
+    }
+    context->except->state = PENDING_STATE;
+    switch(context->except->scope){
+    case TRY_SCOPE:
+        exhprint_debug(context, "longjmp(throwbuf)");
+        EXH_LONGJMP(context->except->throwbuf, 1);
+    case CATCH_SCOPE:
+        exhprint_debug(context, "longjmp(finalbuf)");
+        EXH_LONGJMP(context->except->finalbuf, 1);
+    case FINALLY_SCOPE:
+        exhprint_debug(context, "longjmp(finalbuf)");
+        EXH_LONGJMP(context->except->finalbuf, 1);
+    }
+}
+
+// -- 45
 int exhcatch(
     Context *cptr, ObjectRef object){}
 int exhfinally(Context *cptr){}
