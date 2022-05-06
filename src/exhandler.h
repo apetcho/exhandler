@@ -453,10 +453,24 @@ void* exhmem_realloc(
     if(e){} \
     else{assert(e); throw(n, NULL); }
 
-void* exhhandle_assertion(
+/**
+ * @brief Process failed assertion.
+ * 
+ * This routine is called when assertion failure has occured.
+ * It is used by functional macros assert(), exh_validate, and exh_check().
+ * 
+ * @param cptr      Pointer to thread exception context
+ * @param flag      Flag to indicate that abort() must be invoked
+ * @param expr      Failed expression string
+ * @param filename  Name of source file where failure occured
+ * @param lineno    Source file line number.
+ */
+void exhhandle_assertion(
     Context *cptr, int flag, char *expr, char *filename, int lineno);
 
+// -------------------------------
 // --- exception and other api ---
+// -------------------------------
 
 #define EXH_SETJMP(env)         sigsetjmp(env, 1)
 #define EXH_LONGJMP(env, val)   siglongjmp(env, val)
