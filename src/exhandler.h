@@ -523,6 +523,7 @@ struct Context{
     char description[1024];
     exh_sighandlerFn aborthandler;
     exh_sighandlerFn fpehandler;
+    exh_sighandlerFn illhandler;
     exh_sighandlerFn segvhandler;
     exh_sighandlerFn bushandler;
 };

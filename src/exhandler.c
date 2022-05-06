@@ -313,6 +313,38 @@ static void exhthrow_signal(int num){
     exhthrow(NULL, objref, NULL, "?", 0);
 }
 
+// -----------------------------------------------------------------
+// exhinstall_handlers() :: Install signal/trap handler if needed
+// -----------------------------------------------------------------
+static int exhinstall_handlers(Context *context){
+    int stored = 0;
+    if(context->stack == NULL){
+        EXHANDLER_THREAD_MUTEX_FUNC(1);
+        if(EXHANDLER_MULTI_THREADING && EXHANDLER_SHARE && numThreadsTry++ ==0){
+            shared_abort_handlerfn = signal(SIGABRT, exhthrow_signal);
+            shared_fpe_handlerfn = signal(SIGFPE, exhthrow_signal);
+            shared_ill_handlerfn = signal(SIGILL, exhthrow_signal);
+            shared_segv_handlerfn = signal(SIGSEGV, exhthrow_signal);
+#ifdef SIGBUS
+            shared_bus_handlerfn = signal(SIGBUS, exhthrow_signal);
+#endif
+            stored = 1;
+        }else if(!EXHANDLER_MULTI_THREADING || !EXHANDLER_SHARE){
+            context->aborthandler = signal(SIGABRT, exhthrow_signal);
+            context->fpehandler = signal(SIGFPE, exhthrow_signal);
+            context->illhandler = signal(SIGILL, exhthrow_signal);
+            context->segvhandler = signal(SIGSEGV, exhthrow_signal);
+#ifdef SIGBUS
+            context->bushandler = signal(SIGSEGV, exhthrow_signal);
+#endif
+            stored = 1;
+        }
+        EXHANDLER_THREAD_MUTEX_FUNC(0);
+    }
+
+    return stored;
+}
+
 // -- 42
 void exhthread_cleanup(int tid){
 
