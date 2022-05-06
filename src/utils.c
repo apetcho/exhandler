@@ -254,7 +254,17 @@ void list_remove_last(List *list){
 }
 
 // -- 19
-void* list_get_head(List *list){}
+void* list_get_head(List *list){
+    assert(list != NULL);
+    if(list->len == 0){ return NULL;}
+    else{
+        list->pointer = list->head->next;
+        return list->pointer->data;
+    }
+    return NULL;
+}
+
+// -- 20
 void* list_get_tail(List *list){}
 void* list_get_last(List *list){}
 void* list_get_next(List *list){}

@@ -209,6 +209,12 @@ void* list_remove(List *list, void *data);
  */
 void* list_remove_last(List *list);
 
+/**
+ * @brief Get head data object value
+ * 
+ * @param list 
+ * @return void* 
+ */
 void* list_get_head(List *list);
 void* list_get_tail(List *list);
 void* list_get_last(List *list);
