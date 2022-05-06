@@ -311,10 +311,15 @@ List* list_merge(List *list1, List* list2);
 //                       DICTIONARY (aka HASHTABLE) API
 // ----------------------------------------------------------------------
 struct Dict{
-    List **lists;
-    int count;
+    List **bucket;
+    int len;
 };
 
+/**
+ * @brief Create an empty dictionary (aka Hash table).
+ * 
+ * @return Dict* 
+ */
 Dict* dict_new();
 void dict_delete(Dict *dict);
 void dict_delete_with_data(Dict *dict);

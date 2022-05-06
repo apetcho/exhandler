@@ -3,6 +3,7 @@
 
 #define EXH_STACK_DEFAULT_SIZE      32
 #define EXH_STACK_SIZE_INCREMENT    32
+#define EXH_HASH_BUCKET_SIZE        1024
 
 /********************************************************************/
 /*               Stack Data Structure Implementation                */
@@ -431,3 +432,25 @@ List* list_merge(List *list1, List* list2){
 
     return list1;
 }
+
+/********************************************************************/
+/*              Dictionary Data Structure Implementation            */
+/********************************************************************/
+Dict* dict_new(){
+    Dict *dict;
+    dict = malloc(sizeof(Dict));
+    dict->len = 0;
+    dict->bucket = malloc(EXH_HASH_BUCKET_SIZE * sizeof(List*));
+    for(int i=0; i < EXH_HASH_BUCKET_SIZE; i++){
+        dict->bucket[i] = list_new();
+    }
+
+    return dict;
+}
+
+void dict_delete(Dict *dict){}
+void dict_delete_with_data(Dict *dict){}
+void* dict_get(Dict *dict, int key){}
+void dict_put(Dict *dict, int key, void *data){}
+void* dict_remove(Dict *dict, int key){}
+int dict_len(Dict *dict){}
