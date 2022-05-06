@@ -282,6 +282,37 @@ static void exhprint_stacktrace(FILE *fileptr){
     }
 }
 
+// -----------------------------------------------------------------
+// exhthrow_signal() :: 'throw' exception caused by signal
+// -----------------------------------------------------------------
+static void exhthrow_signal(int num){
+    ObjectRef objref;
+    exhprint_debug(cptr, "exhthrow_signal");
+    switch(num){
+    case SIGABRT:
+        objref = AbnormalTerminationError;
+        break;
+    case SIGFPE:
+        objref = ArithmethicError;
+        break;
+    case SIGILL:
+        objref = IllegalInstructionError;
+        break;
+    case SIGSEGV:
+        objref = SegmentationError;
+        break;
+#ifdef SIGBUS
+    case SIGBUS:
+        objref = BusError;
+        break;
+#endif
+    }
+
+    signal(num, exhthrow_signal);
+    objref->signum = num;
+    exhthrow(NULL, objref, NULL, "?", 0);
+}
+
 // -- 42
 void exhthread_cleanup(int tid){
 
