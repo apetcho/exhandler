@@ -248,6 +248,14 @@ static ObjectRef exhget_class(void){
     return context->except->class;
 }
 
+// -----------------------------------------------------------------
+// exhget_data() :: get current exception associated data
+// -----------------------------------------------------------------
+static void* exhget_data(void){
+    Context *context = exhget_context(NULL);
+    exhprint_debug(context, "exhget_data");
+    return context->except->data;
+}
 
 // -- 42
 void exhthread_cleanup(int tid){
