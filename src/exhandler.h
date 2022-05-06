@@ -119,7 +119,16 @@ struct List{
  * @return List* 
  */
 List* list_new(void);
-void list_delete(ListNode *list);
+
+/**
+ * @brief Free list nut not user data.
+ * 
+ * This routine free the list handle and the nodes, but does not free the user
+ * data.
+ * 
+ * @param list 
+ */
+void list_delete(List *list);
 void list_delete_with_data(List *data);
 void list_prepend(List *list, void *data);
 void list_append(List *list, void *data);

@@ -86,7 +86,20 @@ List* list_new(void){
 }
 
 // -- 09
-void list_delete(ListNode *list){}
+void list_delete(List *list){
+    assert(list != NULL);
+    ListNode *cursor;
+    cursor = list->head->next;
+    while(cursor != list->head){
+        List *node;
+        node = cursor->next;
+        free(cursor);
+        cursor = node;
+    }
+    free(list->head);
+    free(list);
+}
+
 void list_delete_with_data(List *data){}
 void list_prepend(List *list, void *data){}
 void list_append(List *list, void *data){}
