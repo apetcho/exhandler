@@ -566,9 +566,30 @@ void exhreturn(Context *context){
 
 //  -- 48
 int exhcheck_begin(
-    Context *cptr, int *checked, char *filename, int lineno
-){}
+    Context *context, int *checked, char *filename, int lineno
+){
+    exhprint_debug(context, "exhcheck_begin");
 
+    if(context->except->checklist == NULL && !*checked){
+        context->except->checklist = list_new();
+    }else{
+        if(!*checked){
+            if(list_len(context->except->checklist) == 0){
+                fprintf(
+                    stderr, "Warning: No catch clause(s): file \"%s\", "
+                    "line %d.\n", filename, lineno
+                );
+            }
+            list_delete_with_data(context->except->checklist);
+            context->except->checklist = NULL;
+            *checked = 1;
+        }
+    }
+
+    return *checked;
+}
+
+// -- 49
 int exhcheck(
     Context *cptr, int *checked, ObjectRef object, char *filename, int lineno
 ){}
