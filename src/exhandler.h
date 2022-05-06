@@ -28,6 +28,13 @@ struct Stack{
     int pointer;
 };
 
+/**
+ * @brief Allocate memory for a new stack.
+ * 
+ * The stack buffer size is increased when needed.
+ * 
+ * @return Stack* Pointer to the stack newly created.
+ */
 Stack* stack_new(void);
 void stack_delete(Stack *stack);
 void stack_delete_with_data(Stack *stack);
