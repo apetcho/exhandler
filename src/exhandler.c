@@ -160,6 +160,21 @@ static void exhmutex(int mode){
 }
 #endif
 
+#ifdef EXHANDLER_DEBUG
+static void exhprint_debug(Context *cptr, char *name){
+    if(cptr == NULL){
+        cptr exhget_context(NULL);
+    }
+    for(int i=(cptr && cptr->stack) ? stack_len(cptr->stack):0; i != 0; i--){
+        fputs(" ", stderr);
+    }
+    fputs(name, stderr);
+    fputc('\n', stderr);
+}
+#else
+#define exhprint_debug(cpr, name)
+#endif
+
 // -- 40
 Scope exhget_scope(Context *cptr){}
 
