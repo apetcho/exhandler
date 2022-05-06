@@ -328,6 +328,41 @@ void* list_find(List *list, void *data){
 }
 
 // -- 26
-List* list_split_before(List *list){}
+List* list_split_before(List *list){
+    assert(list != NULL);
+    exh_validate(list->len > 0, NULL);
+    exh_validate(list->pointer != NULL, NULL);
+    List *retlist;
+    ListNode *node;
+
+    retlist = malloc(sizeof(List));
+    retlist->head = malloc(sizeof(ListNode));
+    retlist->head->data = NULL;
+    retlist->len = 0;
+
+    node = list->head->next;
+    while(node != list->pointer){
+        list->len--;
+        retlist->len++;
+        node = node->next;
+    }
+    if(list->len == 0){
+        retlist->head->prev = retlist->head->next = retlist->head;
+    }else{
+        retlist->head->next = list->head->next;
+        retlist->head->next->prev = retlist->head;
+        retlist->head->prev = list->pointer->prev;
+        retlist->head->prev->next = retlist->head;
+
+        list->head->next = list->pointer;
+        list->pointer->prev = list->head;
+    }
+
+    retlist->pointer = NULL;
+
+    return retlist;
+}
+
+// -- 27
 List* list_split_after(List *list){}
 List* list_merge(List *list1, List* list2){}

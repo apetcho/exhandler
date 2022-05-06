@@ -266,6 +266,19 @@ int list_len(List *list);
  * value;
  */
 void* list_find(List *list, void *data);
+
+/**
+ * @brief Split list just before last node.
+ * 
+ * The split is made just before the last accessed list node. A new list is
+ * created for the part befor the last accessed node. The last accessed node
+ * for the original list is not affected. The last accessed list node for
+ * the new list is reset.
+ * 
+ * @param list 
+ * @return List* The new list containing nodes before original last accessed
+ * list node.
+ */
 List* list_split_before(List *list);
 List* list_split_after(List *list);
 List* list_merge(List *list1, List* list2);
