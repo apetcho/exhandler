@@ -471,8 +471,21 @@ static int exhis_derived(ObjectRef objref, ObjectRef base){
 }
 
 // -- 45
-int exhcatch(
-    Context *cptr, ObjectRef object){}
+int exhcatch(Context *context, ObjectRef object){
+    exhprint_debug(context, "exhcatch");
+    if(context == NULL){
+        context = exhget_context(NULL);
+    }
+    if(context->except->state == PENDING_STATE &&
+        exhis_derived(context->except->class, object)
+    ){
+        context->except->state = CAUGHT_STATE;
+    }
+
+    return context->except->state == CAUGHT_STATE;
+}
+
+// -- 46
 int exhfinally(Context *cptr){}
 void exhreturn(Context *cptr){}
 int exhcheck_begin(

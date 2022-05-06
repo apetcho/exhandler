@@ -659,13 +659,13 @@ void exhthrow(
  * @param object 
  * @return int 
  */
-int exhcatch(
-    Context *cptr, ObjectRef exceptObj);
-int exhfinally(Context *cptr);
-void exhreturn(Context *cptr);
-int exhcheck_begin(
-    Context *cptr, int *checked, char *filename, int lineno);
+int exhcatch(Context *context, ObjectRef exceptObj);
+int exhfinally(Context *context);
+void exhreturn(Context *context);
+int exhcheck_begin(Context *context, int *checked, char *filename, int lineno);
 int exhcheck(
-    Context *cptr, int *checked, ObjectRef object, char *filename, int lineno);
+    Context *context, int *checked, ObjectRef object,
+    char *filename, int lineno
+);
 
 #endif /* __EXHANDLER_H_ */
