@@ -191,8 +191,23 @@ void* list_remove_head(List *list);
  * @param list 
  */
 void* list_remove_tail(List *list);
-void list_remove_last(List *list);
-void list_remove(List *list);
+
+
+/**
+ * @brief Remove a the specified node from list.
+ * 
+ * @param list 
+ * @return void* 
+ */
+void* list_remove(List *list, void *data);
+/**
+ * @brief 
+ * 
+ * @param list 
+ * @return void* 
+ */
+void* list_remove_last(List *list);
+
 void* list_get_head(List *list);
 void* list_get_tail(List *list);
 void* list_get_last(List *list);
